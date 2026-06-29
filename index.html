@@ -68,21 +68,54 @@
        CSS CUSTOM PROPERTIES
     =========================== */
     :root {
+      /* Purple (primary) */
       --primary: #6A38C2;
       --primary-dark: #4e27a0;
       --secondary: #9C6BFF;
       --accent: #BFA2FF;
       --accent-light: #EDE0FF;
+
+      /* Green */
+      --green: #16a34a;
+      --green-mid: #22c55e;
+      --green-light: #dcfce7;
+      --green-border: rgba(22,163,74,0.2);
+
+      /* Blue */
+      --blue: #2563eb;
+      --blue-mid: #3b82f6;
+      --blue-light: #dbeafe;
+      --blue-border: rgba(37,99,235,0.2);
+
+      /* Yellow/Orange */
+      --yellow: #d97706;
+      --yellow-mid: #f59e0b;
+      --yellow-light: #fef3c7;
+      --yellow-border: rgba(217,119,6,0.2);
+
+      /* Pink */
+      --pink: #db2777;
+      --pink-light: #fce7f3;
+      --pink-border: rgba(219,39,119,0.2);
+
+      /* Orange */
+      --orange: #ea580c;
+      --orange-light: #ffedd5;
+
+      /* Teal */
+      --teal: #0d9488;
+      --teal-light: #ccfbf1;
+
       --white: #ffffff;
       --off-white: #fafbff;
       --text-dark: #1a1035;
       --text-mid: #4a4066;
       --text-light: #8b80a8;
       --glass-bg: rgba(255,255,255,0.65);
-      --glass-border: rgba(106,56,194,0.15);
-      --shadow-sm: 0 2px 16px rgba(106,56,194,0.08);
-      --shadow-md: 0 8px 40px rgba(106,56,194,0.14);
-      --shadow-lg: 0 20px 80px rgba(106,56,194,0.18);
+      --glass-border: rgba(106,56,194,0.12);
+      --shadow-sm: 0 2px 16px rgba(0,0,0,0.06);
+      --shadow-md: 0 8px 40px rgba(0,0,0,0.10);
+      --shadow-lg: 0 20px 80px rgba(0,0,0,0.13);
       --radius-sm: 12px;
       --radius-md: 20px;
       --radius-lg: 32px;
@@ -115,7 +148,7 @@
     =========================== */
     #progress-bar {
       position: fixed; top: 0; left: 0; height: 3px;
-      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+      background: linear-gradient(90deg, #6A38C2, #2563eb, #16a34a, #f59e0b, #db2777);
       z-index: 9999; width: 0%; transition: width 0.1s;
       border-radius: 0 3px 3px 0;
     }
@@ -163,9 +196,10 @@
       filter: blur(80px); opacity: 0.08;
       animation: blobFloat 10s ease-in-out infinite alternate;
     }
-    .blob-1 { width: 500px; height: 500px; background: var(--primary); top: -100px; left: -100px; animation-delay: 0s; }
-    .blob-2 { width: 400px; height: 400px; background: var(--secondary); top: 40%; right: -80px; animation-delay: 3s; }
-    .blob-3 { width: 350px; height: 350px; background: var(--accent); bottom: 10%; left: 20%; animation-delay: 6s; }
+    .blob-1 { width: 500px; height: 500px; background: var(--primary); top: -100px; left: -100px; animation-delay: 0s; opacity: 0.07; }
+    .blob-2 { width: 400px; height: 400px; background: var(--blue); top: 40%; right: -80px; animation-delay: 3s; opacity: 0.06; }
+    .blob-3 { width: 350px; height: 350px; background: var(--green); bottom: 10%; left: 20%; animation-delay: 6s; opacity: 0.06; }
+    .blob-4 { width: 300px; height: 300px; background: var(--yellow-mid); bottom: 40%; right: 30%; animation-delay: 9s; opacity: 0.05; }
     @keyframes blobFloat {
       0% { transform: translate(0,0) scale(1); }
       100% { transform: translate(30px, 40px) scale(1.08); }
@@ -269,41 +303,95 @@
     #hero {
       min-height: 100vh; position: relative; overflow: hidden;
       display: flex; align-items: center; padding-top: 72px;
-      background: linear-gradient(160deg, #f9f5ff 0%, #fff 50%, #f0e8ff 100%);
+      background: #ffffff;
     }
-    .hero-particles {
-      position: absolute; inset: 0; pointer-events: none;
+
+    /* Colourful hero background decorations */
+    #hero::before {
+      content: ''; position: absolute;
+      top: -120px; right: -120px;
+      width: 520px; height: 520px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(106,56,194,0.12) 0%, rgba(156,107,255,0.06) 60%, transparent 100%);
+      pointer-events: none; z-index: 0;
     }
+    #hero::after {
+      content: ''; position: absolute;
+      bottom: -80px; left: -80px;
+      width: 380px; height: 380px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(34,197,94,0.10) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
+    }
+
+    /* Floating colour blobs INSIDE hero */
+    .hero-blob {
+      position: absolute; border-radius: 50%; pointer-events: none; z-index: 0;
+      filter: blur(40px);
+    }
+    .hero-blob-1 { width: 260px; height: 260px; background: rgba(106,56,194,0.13); top: 8%; left: 55%; animation: hb1 8s ease-in-out infinite alternate; }
+    .hero-blob-2 { width: 180px; height: 180px; background: rgba(34,197,94,0.14);  top: 60%; left: 70%; animation: hb2 10s ease-in-out infinite alternate; }
+    .hero-blob-3 { width: 200px; height: 200px; background: rgba(245,158,11,0.12); top: 20%; left: 5%;  animation: hb3 9s ease-in-out infinite alternate; }
+    .hero-blob-4 { width: 150px; height: 150px; background: rgba(37,99,235,0.10);  top: 70%; left: 10%; animation: hb4 7s ease-in-out infinite alternate; }
+    .hero-blob-5 { width: 100px; height: 100px; background: rgba(219,39,119,0.09); top: 45%; left: 45%; animation: hb1 6s ease-in-out infinite alternate; }
+    @keyframes hb1 { 0%{transform:translate(0,0) scale(1)} 100%{transform:translate(25px,-30px) scale(1.1)} }
+    @keyframes hb2 { 0%{transform:translate(0,0) scale(1)} 100%{transform:translate(-20px,25px) scale(1.08)} }
+    @keyframes hb3 { 0%{transform:translate(0,0) scale(1)} 100%{transform:translate(30px,20px) scale(1.12)} }
+    @keyframes hb4 { 0%{transform:translate(0,0) scale(1)} 100%{transform:translate(-15px,-20px) scale(1.05)} }
+
+    /* Floating emoji particles */
+    .hero-particles { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
     .particle {
       position: absolute; border-radius: 50%;
       animation: particleFloat linear infinite;
-      opacity: 0.5;
     }
     @keyframes particleFloat {
-      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-      10% { opacity: 0.5; }
-      90% { opacity: 0.5; }
+      0%   { transform: translateY(100vh) rotate(0deg);   opacity: 0; }
+      10%  { opacity: 0.65; }
+      90%  { opacity: 0.65; }
       100% { transform: translateY(-20vh) rotate(720deg); opacity: 0; }
     }
+
+    /* Colourful floating shapes (triangles / stars) */
+    .hero-shape {
+      position: absolute; pointer-events: none; z-index: 1;
+      animation: shapeFloat ease-in-out infinite alternate;
+    }
+    @keyframes shapeFloat {
+      0%   { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(-18px) rotate(20deg); }
+    }
+
     .hero-inner {
-      max-width: 1200px; margin: 0 auto; padding: 4rem 5%;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+      max-width: 1200px; margin: 0 auto; padding: 3.5rem 5% 3rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center;
       position: relative; z-index: 2; width: 100%;
     }
+
+    /* Hero content — always immediately visible */
+    .hero-content { animation: heroContentIn 0.7s ease both; }
+    @keyframes heroContentIn {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
     .hero-badge {
       display: inline-flex; align-items: center; gap: 8px;
-      background: var(--accent-light); border: 1px solid var(--accent);
-      color: var(--primary); border-radius: 99px;
-      padding: 6px 16px; font-size: 0.8rem; font-weight: 700;
-      margin-bottom: 1.5rem; letter-spacing: 0.5px;
+      background: linear-gradient(135deg, #fef3c7, #fffbeb);
+      border: 1.5px solid #f59e0b;
+      color: #b45309; border-radius: 99px;
+      padding: 7px 18px; font-size: 0.8rem; font-weight: 800;
+      margin-bottom: 1.25rem; letter-spacing: 0.3px;
+      box-shadow: 0 2px 10px rgba(245,158,11,0.2);
+      animation: heroContentIn 0.5s 0.05s ease both;
     }
-    .hero-badge i { font-size: 0.75rem; }
+    .hero-badge i { font-size: 0.8rem; color: #f59e0b; }
+
     .hero-headline {
       font-family: var(--font-display);
-      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-size: clamp(1.9rem, 3.8vw, 3.1rem);
       font-weight: 900; line-height: 1.15;
-      color: var(--text-dark); margin-bottom: 1.25rem;
+      color: var(--text-dark); margin-bottom: 1rem;
       letter-spacing: -1px;
+      animation: heroContentIn 0.6s 0.1s ease both;
     }
     .hero-headline .highlight {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -311,19 +399,34 @@
       background-clip: text;
     }
     .hero-sub {
-      font-size: 1.05rem; color: var(--text-mid); margin-bottom: 2rem;
-      line-height: 1.7;
+      font-size: 0.98rem; color: var(--text-mid); margin-bottom: 1.75rem;
+      line-height: 1.75; animation: heroContentIn 0.6s 0.18s ease both;
     }
     .hero-features {
-      display: flex; flex-direction: column; gap: 10px; margin-bottom: 2.5rem;
+      display: flex; flex-direction: column; gap: 9px; margin-bottom: 2rem;
+      animation: heroContentIn 0.6s 0.24s ease both;
     }
     .hero-feat {
       display: flex; align-items: center; gap: 10px;
-      font-size: 0.9rem; font-weight: 600; color: var(--text-mid);
+      font-size: 0.88rem; font-weight: 700; color: var(--text-dark);
+      background: white; border-radius: 10px; padding: 8px 14px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      border-left: 3px solid transparent;
     }
-    .hero-feat i { color: var(--primary); font-size: 0.9rem; }
+    .hero-feat:nth-child(1) { border-left-color: var(--primary); }
+    .hero-feat:nth-child(2) { border-left-color: var(--green); }
+    .hero-feat:nth-child(3) { border-left-color: var(--blue); }
+    .hero-feat .feat-dot {
+      width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 0.85rem;
+    }
+    .hero-feat:nth-child(1) .feat-dot { background: var(--accent-light); color: var(--primary); }
+    .hero-feat:nth-child(2) .feat-dot { background: var(--green-light); color: var(--green); }
+    .hero-feat:nth-child(3) .feat-dot { background: var(--blue-light); color: var(--blue); }
+
     .hero-btns {
       display: flex; gap: 1rem; flex-wrap: wrap;
+      animation: heroContentIn 0.6s 0.3s ease both;
     }
     .btn-primary {
       display: inline-flex; align-items: center; gap: 8px;
@@ -351,10 +454,10 @@
     /* Hero visual */
     .hero-visual { position: relative; }
     .hero-card-main {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      background: linear-gradient(145deg, #5b21b6 0%, #7c3aed 40%, #6d28d9 70%, #4f46e5 100%);
       border-radius: var(--radius-lg); padding: 2.5rem;
       color: white; position: relative; overflow: hidden;
-      box-shadow: var(--shadow-lg);
+      box-shadow: 0 25px 80px rgba(109,40,217,0.45), 0 0 0 1px rgba(255,255,255,0.1) inset;
     }
     .hero-card-main::before {
       content: ''; position: absolute; top: -30%; right: -10%;
@@ -371,12 +474,12 @@
       margin-bottom: 2rem; position: relative; z-index: 1;
     }
     .hero-emoji {
-      background: rgba(255,255,255,0.18); border-radius: var(--radius-sm);
-      padding: 1rem; text-align: center; font-size: 1.8rem;
-      backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.25);
-      transition: var(--transition);
+      background: rgba(255,255,255,0.16); border-radius: var(--radius-sm);
+      padding: 1rem; text-align: center; font-size: 1.9rem;
+      backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.28);
+      transition: var(--transition); cursor: default;
     }
-    .hero-emoji:hover { transform: scale(1.1) rotate(5deg); background: rgba(255,255,255,0.25); }
+    .hero-emoji:hover { transform: scale(1.15) rotate(8deg); background: rgba(255,255,255,0.30); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
     .hero-card-tag {
       font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px;
       text-transform: uppercase; opacity: 0.8; margin-bottom: 0.5rem;
@@ -476,7 +579,7 @@
     /* ===========================
        ABOUT SECTION
     =========================== */
-    #about { background: var(--off-white); }
+    #about { background: linear-gradient(180deg, #fafbff 0%, #f3f0ff 100%); }
     .about-grid {
       display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
     }
@@ -564,7 +667,7 @@
     /* ===========================
        WHY CHOOSE US
     =========================== */
-    #why { background: var(--off-white); }
+    #why { background: linear-gradient(180deg, #f0fdf4 0%, #ecfdf5 100%); }
     .why-grid {
       display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem; margin-top: 3rem;
     }
@@ -606,7 +709,7 @@
     /* ===========================
        DAILY TIMELINE
     =========================== */
-    #daily { background: var(--off-white); }
+    #daily { background: linear-gradient(180deg, #eff6ff 0%, #dbeafe 30%, #eff6ff 100%); }
     .timeline-wrap {
       position: relative; margin-top: 3rem; padding-left: 2rem;
     }
@@ -691,7 +794,7 @@
     /* ===========================
        TESTIMONIALS
     =========================== */
-    #testimonials { background: var(--off-white); }
+    #testimonials { background: linear-gradient(180deg, #fefce8 0%, #fff7ed 100%); }
     .testimonials-slider { position: relative; overflow: hidden; margin-top: 3rem; }
     .testimonials-track {
       display: flex; gap: 1.5rem; transition: transform 0.5s ease;
@@ -1023,8 +1126,23 @@
       section { padding: 3.5rem 5%; }
       .nav-links { display: none; }
       .hamburger { display: flex; }
-      .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
-      .hero-visual { display: none; }
+
+      /* Hero: stack content then visual card below */
+      #hero { min-height: auto; padding-top: 72px; padding-bottom: 2rem; }
+      .hero-inner { grid-template-columns: 1fr; gap: 1.5rem; padding: 1.5rem 5% 1rem; }
+      /* Hero visual: ALWAYS visible, just scaled for mobile */
+      .hero-visual { display: block; margin-bottom: 1rem; }
+      .hero-shape { font-size: 1.2rem !important; }
+      .hero-card-main { padding: 1.5rem; }
+      .hero-emojis { gap: 0.6rem; }
+      .hero-emoji { padding: 0.65rem; font-size: 1.5rem; }
+      .hero-card-title { font-size: 1.05rem; }
+      .hero-float-card:nth-child(2) { top: -14px; right: -10px; padding: 0.65rem 0.9rem; }
+      .hero-float-card:nth-child(3) { bottom: 16px; left: -10px; padding: 0.65rem 0.9rem; }
+      .float-icon { width: 32px; height: 32px; font-size: 0.9rem; }
+      .float-text strong { font-size: 0.78rem; }
+      .float-text span { font-size: 0.68rem; }
+
       .about-grid { grid-template-columns: 1fr; gap: 2rem; }
       .about-visual { display: none; }
       .programs-grid { grid-template-columns: 1fr; }
@@ -1050,6 +1168,106 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }
+  
+    /* ===========================
+       COLOURFUL SECTION TAGS
+    =========================== */
+    .section-tag.green  { background: var(--green-light);  color: var(--green);  }
+    .section-tag.blue   { background: var(--blue-light);   color: var(--blue);   }
+    .section-tag.yellow { background: var(--yellow-light); color: var(--yellow); }
+    .section-tag.pink   { background: var(--pink-light);   color: var(--pink);   }
+    .section-tag.teal   { background: var(--teal-light);   color: var(--teal);   }
+    .section-tag.orange { background: var(--orange-light); color: var(--orange); }
+
+    /* Colourful program card top borders */
+    .program-card:nth-child(1)::before { background: linear-gradient(90deg,var(--green),var(--green-mid)); }
+    .program-card:nth-child(2)::before { background: linear-gradient(90deg,var(--blue),var(--blue-mid)); }
+    .program-card:nth-child(3)::before { background: linear-gradient(90deg,var(--yellow),var(--yellow-mid)); }
+    .program-card:nth-child(4)::before { background: linear-gradient(90deg,var(--pink),#f472b6); }
+    .program-card:nth-child(5)::before { background: linear-gradient(90deg,var(--teal),#2dd4bf); }
+    .program-card:nth-child(6)::before { background: linear-gradient(90deg,var(--orange),#fb923c); }
+    .program-card:nth-child(7)::before { background: linear-gradient(90deg,var(--primary),var(--secondary)); }
+
+    /* Colourful program icon backgrounds per card */
+    .program-card:nth-child(1) .program-icon { background: var(--green-light); }
+    .program-card:nth-child(2) .program-icon { background: var(--blue-light); }
+    .program-card:nth-child(3) .program-icon { background: var(--yellow-light); }
+    .program-card:nth-child(4) .program-icon { background: var(--pink-light); }
+    .program-card:nth-child(5) .program-icon { background: var(--teal-light); }
+    .program-card:nth-child(6) .program-icon { background: var(--orange-light); }
+    .program-card:nth-child(7) .program-icon { background: var(--accent-light); }
+
+    .program-card:nth-child(1):hover .program-icon { background: linear-gradient(135deg,var(--green),var(--green-mid)); }
+    .program-card:nth-child(2):hover .program-icon { background: linear-gradient(135deg,var(--blue),var(--blue-mid)); }
+    .program-card:nth-child(3):hover .program-icon { background: linear-gradient(135deg,var(--yellow),var(--yellow-mid)); }
+    .program-card:nth-child(4):hover .program-icon { background: linear-gradient(135deg,var(--pink),#f472b6); }
+    .program-card:nth-child(5):hover .program-icon { background: linear-gradient(135deg,var(--teal),#2dd4bf); }
+    .program-card:nth-child(6):hover .program-icon { background: linear-gradient(135deg,var(--orange),#fb923c); }
+    .program-card:nth-child(7):hover .program-icon { background: linear-gradient(135deg,var(--primary),var(--secondary)); }
+
+    /* Colourful why-cards on hover */
+    .why-card:nth-child(1) .why-icon  { background: var(--accent-light); color: var(--primary); }
+    .why-card:nth-child(2) .why-icon  { background: var(--green-light);  color: var(--green);   }
+    .why-card:nth-child(3) .why-icon  { background: var(--blue-light);   color: var(--blue);    }
+    .why-card:nth-child(4) .why-icon  { background: var(--yellow-light); color: var(--yellow);  }
+    .why-card:nth-child(5) .why-icon  { background: var(--pink-light);   color: var(--pink);    }
+    .why-card:nth-child(6) .why-icon  { background: var(--teal-light);   color: var(--teal);    }
+    .why-card:nth-child(7) .why-icon  { background: var(--orange-light); color: var(--orange);  }
+    .why-card:nth-child(8) .why-icon  { background: var(--green-light);  color: var(--green);   }
+    .why-card:nth-child(9) .why-icon  { background: var(--blue-light);   color: var(--blue);    }
+    .why-card:nth-child(10) .why-icon { background: var(--accent-light); color: var(--primary); }
+    .why-card:nth-child(11) .why-icon { background: var(--yellow-light); color: var(--yellow);  }
+    .why-card:nth-child(12) .why-icon { background: var(--teal-light);   color: var(--teal);    }
+
+    /* Facility card hover border colours */
+    .facility-card:nth-child(4n+1):hover { border-color: var(--primary); }
+    .facility-card:nth-child(4n+2):hover { border-color: var(--green);   }
+    .facility-card:nth-child(4n+3):hover { border-color: var(--blue);    }
+    .facility-card:nth-child(4n+0):hover { border-color: var(--yellow-mid); }
+
+    /* Colourful timeline dots */
+    .timeline-item:nth-child(odd)  .timeline-dot { background: linear-gradient(135deg,var(--primary),var(--secondary)); box-shadow: 0 0 0 3px rgba(106,56,194,0.2); }
+    .timeline-item:nth-child(even) .timeline-dot { background: linear-gradient(135deg,var(--green),var(--green-mid));   box-shadow: 0 0 0 3px rgba(34,197,94,0.2); }
+    .timeline-item:nth-child(3n)   .timeline-dot { background: linear-gradient(135deg,var(--blue),var(--blue-mid));     box-shadow: 0 0 0 3px rgba(37,99,235,0.2); }
+    .timeline-item:nth-child(5)    .timeline-dot { background: linear-gradient(135deg,var(--yellow),var(--yellow-mid)); box-shadow: 0 0 0 3px rgba(245,158,11,0.2); }
+    .timeline-item:nth-child(7)    .timeline-dot { background: linear-gradient(135deg,var(--pink),#f472b6);              box-shadow: 0 0 0 3px rgba(219,39,119,0.2); }
+
+    /* Colourful gallery items */
+    .gallery-item:nth-child(1) { background: linear-gradient(135deg,var(--accent-light),#d8b4fe); }
+    .gallery-item:nth-child(2) { background: linear-gradient(135deg,var(--green-light),#86efac); }
+    .gallery-item:nth-child(3) { background: linear-gradient(135deg,var(--blue-light),#93c5fd); }
+    .gallery-item:nth-child(4) { background: linear-gradient(135deg,var(--yellow-light),#fde68a); }
+    .gallery-item:nth-child(5) { background: linear-gradient(135deg,var(--pink-light),#f9a8d4); }
+    .gallery-item:nth-child(6) { background: linear-gradient(135deg,var(--teal-light),#5eead4); }
+
+    /* Colourful value chips */
+    .value-chip:nth-child(1) { background: var(--pink-light);   color: var(--pink);    border: 1px solid var(--pink-border); }
+    .value-chip:nth-child(2) { background: var(--green-light);  color: var(--green);   border: 1px solid var(--green-border); }
+    .value-chip:nth-child(3) { background: var(--blue-light);   color: var(--blue);    border: 1px solid var(--blue-border); }
+    .value-chip:nth-child(4) { background: var(--yellow-light); color: var(--yellow);  border: 1px solid var(--yellow-border); }
+    .value-chip:nth-child(5) { background: var(--accent-light); color: var(--primary); border: 1px solid rgba(106,56,194,0.2); }
+    .value-chip:nth-child(6) { background: var(--teal-light);   color: var(--teal);    border: 1px solid rgba(13,148,136,0.2); }
+    .value-chip:nth-child(7) { background: var(--orange-light); color: var(--orange);  border: 1px solid rgba(234,88,12,0.2); }
+
+    /* Colourful stat numbers */
+    .stat-item:nth-child(1) .stat-num { background: linear-gradient(135deg,var(--primary),var(--secondary)); -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent; }
+    .stat-item:nth-child(2) .stat-num { background: linear-gradient(135deg,var(--green),var(--green-mid));   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent; }
+    .stat-item:nth-child(3) .stat-num { background: linear-gradient(135deg,var(--blue),var(--blue-mid));     -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent; }
+    .stat-item:nth-child(4) .stat-num { background: linear-gradient(135deg,var(--yellow),var(--yellow-mid)); -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent; }
+
+    /* Colourful contact card icons */
+    .contact-card:nth-child(1) .contact-card-icon { background: var(--accent-light); color: var(--primary); }
+    .contact-card:nth-child(2) .contact-card-icon { background: var(--green-light);  color: var(--green);   }
+    .contact-card:nth-child(3) .contact-card-icon { background: var(--blue-light);   color: var(--blue);    }
+    .contact-card:nth-child(4) .contact-card-icon { background: var(--yellow-light); color: var(--yellow);  }
+    .contact-card:nth-child(5) .contact-card-icon { background: var(--green-light);  color: #16a34a;        }
+    .contact-card:nth-child(6) .contact-card-icon { background: var(--teal-light);   color: var(--teal);    }
+
+    /* Colourful admission CTA gradient */
+    #admission {
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 30%, #0d9488 70%, #16a34a 100%) !important;
+    }
+
   </style>
 </head>
 <body>
@@ -1059,9 +1277,17 @@
 
 <!-- Loading Screen -->
 <div id="loader" aria-hidden="true">
-  <div class="loader-logo">2K <span>Kiddo</span></div>
-  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
-  <p class="loader-text">Where Little Minds Grow</p>
+  <div style="text-align:center;">
+    <div style="font-size:3rem;margin-bottom:0.5rem;animation:popIn 0.5s ease;">🏫</div>
+    <div class="loader-logo">2K <span>Kiddo</span></div>
+    <div style="display:flex;gap:8px;justify-content:center;margin:0.75rem 0 0.5rem;">
+      <span style="font-size:1.2rem;animation:shapeFloat 1s ease-in-out infinite alternate;animation-delay:0s">⭐</span>
+      <span style="font-size:1.2rem;animation:shapeFloat 1s ease-in-out infinite alternate;animation-delay:0.2s">🌈</span>
+      <span style="font-size:1.2rem;animation:shapeFloat 1s ease-in-out infinite alternate;animation-delay:0.4s">✨</span>
+    </div>
+    <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+    <p class="loader-text">Where Little Minds Grow</p>
+  </div>
 </div>
 
 <!-- Background Blobs -->
@@ -1069,6 +1295,7 @@
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
   <div class="blob blob-3"></div>
+  <div class="blob blob-4"></div>
 </div>
 
 <!-- Mouse Glow -->
@@ -1139,37 +1366,85 @@
      HERO SECTION
 ============================== -->
 <section id="hero" aria-labelledby="hero-title">
+  <!-- Colourful blobs -->
+  <div class="hero-blob hero-blob-1" aria-hidden="true"></div>
+  <div class="hero-blob hero-blob-2" aria-hidden="true"></div>
+  <div class="hero-blob hero-blob-3" aria-hidden="true"></div>
+  <div class="hero-blob hero-blob-4" aria-hidden="true"></div>
+  <div class="hero-blob hero-blob-5" aria-hidden="true"></div>
+
+  <!-- Floating decorative shapes -->
+  <div class="hero-shape" style="top:12%;left:8%;font-size:2.2rem;animation-duration:5s;animation-delay:0s;" aria-hidden="true">⭐</div>
+  <div class="hero-shape" style="top:22%;right:10%;font-size:1.8rem;animation-duration:6s;animation-delay:1s;" aria-hidden="true">🌈</div>
+  <div class="hero-shape" style="bottom:18%;left:6%;font-size:1.6rem;animation-duration:7s;animation-delay:2s;" aria-hidden="true">🎈</div>
+  <div class="hero-shape" style="bottom:25%;right:8%;font-size:1.5rem;animation-duration:4.5s;animation-delay:0.5s;" aria-hidden="true">✨</div>
+  <div class="hero-shape" style="top:55%;left:50%;font-size:1.3rem;animation-duration:8s;animation-delay:1.5s;" aria-hidden="true">🌟</div>
+  <div class="hero-shape" style="top:75%;left:35%;font-size:1.4rem;animation-duration:5.5s;animation-delay:3s;" aria-hidden="true">💫</div>
+
+  <!-- Coloured dot accents -->
+  <div aria-hidden="true" style="position:absolute;top:30%;left:3%;width:14px;height:14px;border-radius:50%;background:var(--green-mid);opacity:0.55;animation:hb2 5s infinite alternate;"></div>
+  <div aria-hidden="true" style="position:absolute;top:15%;left:48%;width:10px;height:10px;border-radius:50%;background:var(--yellow-mid);opacity:0.6;animation:hb3 6s infinite alternate;"></div>
+  <div aria-hidden="true" style="position:absolute;bottom:30%;right:15%;width:12px;height:12px;border-radius:50%;background:var(--blue-mid);opacity:0.5;animation:hb1 7s infinite alternate;"></div>
+  <div aria-hidden="true" style="position:absolute;top:65%;right:28%;width:16px;height:16px;border-radius:50%;background:var(--pink);opacity:0.35;animation:hb4 8s infinite alternate;"></div>
+
+  <!-- Particles -->
   <div class="hero-particles" id="hero-particles" aria-hidden="true"></div>
+
   <div class="hero-inner">
+    <!-- LEFT: Content -->
     <div class="hero-content">
-      <div class="hero-badge fade-up">
+      <div class="hero-badge">
         <i class="fas fa-star" aria-hidden="true"></i>
-        Admissions Open 2026 – Enrol Now
+        🎉 Admissions Open 2026 — Enrol Now!
       </div>
-      <h1 class="hero-headline fade-up" id="hero-title">
-        Where <span class="highlight">Little Minds</span> Grow Into Bright Futures
+      <h1 class="hero-headline" id="hero-title">
+        Where <span class="highlight">Little Minds</span><br>Grow Into<br>
+        <span style="background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Bright Futures</span>
       </h1>
-      <p class="hero-sub fade-up">
-        2K Kiddo International Standard Curriculum Public School — Athipet, Ambattur, Chennai.<br>
-        World-class early childhood education in a safe, nurturing, and inspiring environment.
+      <p class="hero-sub">
+        <strong style="color:var(--primary);">2K Kiddo International Standard Curriculum Public School</strong><br>
+        Athipet, Ambattur, Chennai — World-class early childhood education in a safe, nurturing, and inspiring environment.
       </p>
-      <div class="hero-features fade-up" role="list">
-        <div class="hero-feat" role="listitem"><i class="fas fa-globe" aria-hidden="true"></i> International Standard Curriculum</div>
-        <div class="hero-feat" role="listitem"><i class="fas fa-shield-alt" aria-hidden="true"></i> Safe, CCTV-Monitored Learning Environment</div>
-        <div class="hero-feat" role="listitem"><i class="fas fa-laugh-beam" aria-hidden="true"></i> Fun-Based, Activity-Driven Education</div>
+      <div class="hero-features" role="list">
+        <div class="hero-feat" role="listitem">
+          <span class="feat-dot"><i class="fas fa-globe" aria-hidden="true"></i></span>
+          International Standard Curriculum
+        </div>
+        <div class="hero-feat" role="listitem">
+          <span class="feat-dot"><i class="fas fa-shield-alt" aria-hidden="true"></i></span>
+          Safe, CCTV-Monitored Learning Environment
+        </div>
+        <div class="hero-feat" role="listitem">
+          <span class="feat-dot"><i class="fas fa-laugh-beam" aria-hidden="true"></i></span>
+          Fun-Based, Activity-Driven Education
+        </div>
       </div>
-      <div class="hero-btns fade-up">
+      <div class="hero-btns">
         <a href="#admission" class="btn-primary ripple-container" role="button">
           <i class="fas fa-graduation-cap" aria-hidden="true"></i> Admission Open
         </a>
         <a href="#contact" class="btn-outline" role="button">
-          <i class="fas fa-calendar" aria-hidden="true"></i> Book a School Visit
+          <i class="fas fa-calendar" aria-hidden="true"></i> Book a Visit
         </a>
+      </div>
+
+      <!-- Mini stat pills -->
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:1.75rem;">
+        <div style="display:inline-flex;align-items:center;gap:6px;background:var(--green-light);color:var(--green);border-radius:99px;padding:5px 14px;font-size:0.78rem;font-weight:800;border:1px solid var(--green-border);">
+          <i class="fas fa-users" style="font-size:0.7rem;"></i> 500+ Students
+        </div>
+        <div style="display:inline-flex;align-items:center;gap:6px;background:var(--blue-light);color:var(--blue);border-radius:99px;padding:5px 14px;font-size:0.78rem;font-weight:800;border:1px solid var(--blue-border);">
+          <i class="fas fa-award" style="font-size:0.7rem;"></i> 8+ Years Excellence
+        </div>
+        <div style="display:inline-flex;align-items:center;gap:6px;background:var(--yellow-light);color:var(--yellow);border-radius:99px;padding:5px 14px;font-size:0.78rem;font-weight:800;border:1px solid var(--yellow-border);">
+          <i class="fas fa-star" style="font-size:0.7rem;"></i> 4.9★ Rating
+        </div>
       </div>
     </div>
 
-    <div class="hero-visual" aria-hidden="true">
-      <div style="position:relative;">
+    <!-- RIGHT: Visual card -->
+    <div class="hero-visual">
+      <div style="position:relative;padding:20px 20px 30px 20px;">
         <div class="hero-card-main">
           <div class="hero-emojis">
             <div class="hero-emoji" title="Art & Craft">🎨</div>
@@ -1181,17 +1456,19 @@
             <div class="hero-emoji" title="Coding">💻</div>
             <div class="hero-emoji" title="Yoga">🧘</div>
           </div>
-          <div class="hero-card-tag">International Standard Curriculum</div>
-          <div class="hero-card-title">Play Group to Senior KG — Age 1.5 to 5.5 Years</div>
+          <div class="hero-card-tag">✦ International Standard Curriculum</div>
+          <div class="hero-card-title">Play Group to Senior KG<br><span style="opacity:0.75;font-size:1rem;">Age 1.5 – 5.5 Years</span></div>
         </div>
-        <div class="hero-float-card">
+        <!-- Float card 1 -->
+        <div class="hero-float-card" style="top:-16px;right:0px;">
           <div class="float-icon purple"><i class="fas fa-users"></i></div>
           <div class="float-text">
             <strong>500+ Happy Families</strong>
             <span>Trust 2K Kiddo</span>
           </div>
         </div>
-        <div class="hero-float-card">
+        <!-- Float card 2 -->
+        <div class="hero-float-card" style="bottom:0px;left:0px;">
           <div class="float-icon green"><i class="fas fa-shield-alt"></i></div>
           <div class="float-text">
             <strong>100% Safe Campus</strong>
@@ -1206,7 +1483,7 @@
 <!-- ==============================
      STATS BAR
 ============================== -->
-<div id="stats" aria-label="School statistics">
+<div id="stats" aria-label="School statistics" style="background:linear-gradient(90deg,#f5f3ff,#eff6ff,#f0fdf4,#fefce8);">
   <div class="stats-inner">
     <div class="stat-item fade-up">
       <div class="stat-num" data-count="500">0</div>
@@ -1280,7 +1557,7 @@
 <section id="programs" aria-labelledby="programs-title">
   <div class="section-inner">
     <div class="section-header-center">
-      <div class="section-tag fade-up"><i class="fas fa-book-open" aria-hidden="true"></i> Our Programs</div>
+      <div class="section-tag blue fade-up"><i class="fas fa-book-open" aria-hidden="true"></i> Our Programs</div>
       <h2 class="section-title fade-up" id="programs-title">Programs for Every <span class="hl">Stage of Growth</span></h2>
       <p class="section-desc fade-up">From curious toddlers to confident kindergarteners — we have the perfect program for your child.</p>
     </div>
@@ -1380,7 +1657,7 @@
 <section id="why" aria-labelledby="why-title">
   <div class="section-inner">
     <div class="section-header-center">
-      <div class="section-tag fade-up"><i class="fas fa-award" aria-hidden="true"></i> Why Choose Us</div>
+      <div class="section-tag green fade-up"><i class="fas fa-award" aria-hidden="true"></i> Why Choose Us</div>
       <h2 class="section-title fade-up" id="why-title">What Makes 2K Kiddo <span class="hl">Special</span></h2>
       <p class="section-desc fade-up">We go beyond academics — we shape character, confidence, and creativity.</p>
     </div>
@@ -1455,7 +1732,7 @@
 <section id="facilities" aria-labelledby="facilities-title">
   <div class="section-inner">
     <div class="section-header-center">
-      <div class="section-tag fade-up"><i class="fas fa-building" aria-hidden="true"></i> Our Facilities</div>
+      <div class="section-tag teal fade-up"><i class="fas fa-building" aria-hidden="true"></i> Our Facilities</div>
       <h2 class="section-title fade-up" id="facilities-title">World-Class <span class="hl">Facilities</span> for Young Learners</h2>
       <p class="section-desc fade-up">Every space in our school is thoughtfully designed to inspire, protect, and develop children.</p>
     </div>
@@ -1531,7 +1808,7 @@
   <div class="section-inner">
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start;">
       <div>
-        <div class="section-tag fade-up"><i class="fas fa-clock" aria-hidden="true"></i> A Day at 2K Kiddo</div>
+        <div class="section-tag blue fade-up"><i class="fas fa-clock" aria-hidden="true"></i> A Day at 2K Kiddo</div>
         <h2 class="section-title fade-up" id="daily-title">Our <span class="hl">Daily Schedule</span></h2>
         <p class="section-desc fade-up">A perfectly structured, balanced day designed to keep little ones engaged, energised, and happy.</p>
       </div>
@@ -1607,7 +1884,7 @@
 <section id="gallery" aria-labelledby="gallery-title">
   <div class="section-inner">
     <div class="section-header-center">
-      <div class="section-tag fade-up"><i class="fas fa-images" aria-hidden="true"></i> Gallery</div>
+      <div class="section-tag pink fade-up"><i class="fas fa-images" aria-hidden="true"></i> Gallery</div>
       <h2 class="section-title fade-up" id="gallery-title">Moments of <span class="hl">Joy & Discovery</span></h2>
       <p class="section-desc fade-up">A glimpse into the vibrant world of 2K Kiddo — where every day is a new adventure.</p>
     </div>
@@ -1652,7 +1929,7 @@
 <section id="testimonials" aria-labelledby="testimonials-title">
   <div class="section-inner">
     <div class="section-header-center">
-      <div class="section-tag fade-up"><i class="fas fa-heart" aria-hidden="true"></i> Parent Stories</div>
+      <div class="section-tag yellow fade-up"><i class="fas fa-heart" aria-hidden="true"></i> Parent Stories</div>
       <h2 class="section-title fade-up" id="testimonials-title">What <span class="hl">Parents Say</span> About Us</h2>
       <p class="section-desc fade-up">Hear from the families who trust 2K Kiddo with their most precious gift.</p>
     </div>
@@ -1739,7 +2016,7 @@
 <section id="faq" aria-labelledby="faq-title">
   <div class="section-inner">
     <div class="section-header-center">
-      <div class="section-tag fade-up"><i class="fas fa-question-circle" aria-hidden="true"></i> FAQ</div>
+      <div class="section-tag orange fade-up"><i class="fas fa-question-circle" aria-hidden="true"></i> FAQ</div>
       <h2 class="section-title fade-up" id="faq-title">Frequently Asked <span class="hl">Questions</span></h2>
       <p class="section-desc fade-up">Everything you need to know before taking the next step.</p>
     </div>
@@ -1883,7 +2160,7 @@
 <section id="contact" aria-labelledby="contact-title">
   <div class="section-inner">
     <div class="section-header-center">
-      <div class="section-tag fade-up"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Contact Us</div>
+      <div class="section-tag green fade-up"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Contact Us</div>
       <h2 class="section-title fade-up" id="contact-title">Get in <span class="hl">Touch</span> With Us</h2>
       <p class="section-desc fade-up">We're always happy to answer your questions and welcome you to our school.</p>
     </div>
@@ -2092,7 +2369,7 @@
 window.addEventListener('load', () => {
   setTimeout(() => {
     document.getElementById('loader').classList.add('hidden');
-  }, 1600);
+  }, 900);
 });
 
 /* ===========================
@@ -2409,21 +2686,9 @@ document.querySelectorAll('.ripple-container').forEach(btn => {
 if (typeof gsap !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 
-  // Hero headline stagger
-  gsap.from('.hero-headline', {
-    duration: 1, y: 60, opacity: 0, delay: 1.8, ease: 'power3.out'
-  });
-  gsap.from('.hero-badge', {
-    duration: 0.8, y: 30, opacity: 0, delay: 1.6, ease: 'power2.out'
-  });
-  gsap.from('.hero-sub', {
-    duration: 0.8, y: 40, opacity: 0, delay: 2.0, ease: 'power2.out'
-  });
-  gsap.from('.hero-btns', {
-    duration: 0.8, y: 30, opacity: 0, delay: 2.2, ease: 'power2.out'
-  });
+  // Hero visual slide-in — short delay only, content uses CSS animation
   gsap.from('.hero-visual', {
-    duration: 1, x: 60, opacity: 0, delay: 2.0, ease: 'power3.out'
+    duration: 0.8, x: 50, opacity: 0, delay: 0.15, ease: 'power3.out'
   });
 
   // Parallax on hero blobs
